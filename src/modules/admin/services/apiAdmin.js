@@ -129,9 +129,7 @@ export const cursosService = {
         return response.data;
     },
 };
-
-
-
+ 
 // Servicios de Matrículas
 export const matriculasService = {
     getMatriculas: async (params = {}) => {
