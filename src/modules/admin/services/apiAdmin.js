@@ -27,7 +27,7 @@ export const dashboardService = {
 // Servicios de Estudiantes
 export const estudiantesService = {
     getEstudiantes: async (params = {}) => {
-        const response = await api.get('/admin/estudiantes', { params });
+        const response = await api.get('/admin/estudiantes/', { params });
         return response.data;
     },
 
@@ -55,7 +55,7 @@ export const estudiantesService = {
 // Servicios de Docentes
 export const docentesService = {
     getDocentes: async (params = {}) => {
-        const response = await api.get('/admin/docentes', { params });
+        const response = await api.get('/admin/docentes/', { params });
         return response.data;
     },
 
@@ -135,7 +135,7 @@ export const cursosService = {
 // Servicios de Matrículas
 export const matriculasService = {
     getMatriculas: async (params = {}) => {
-        const response = await api.get('/admin/matriculas', { params });
+        const response = await api.get('/admin/matriculas/', { params });
         return response.data;
     },
 
