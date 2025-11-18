@@ -32,7 +32,11 @@ export const LogoProvider = ({ children }) => {
                 } else {
                     // Si es una ruta relativa, construir la URL usando la baseURL del axiosInstance
                     // pero removiendo /api/v1 para acceder a los archivos estáticos
-                    const baseURL = axiosInstance.defaults.baseURL.replace('/api/v1', '');
+                    let baseURL = axiosInstance.defaults.baseURL;
+                    if (typeof window !== 'undefined' && window.location.protocol === 'https:' && baseURL.startsWith('http://')) {
+                        baseURL = baseURL.replace('http://', 'https://');
+                    }
+                    baseURL = baseURL.replace('/api/v1', '');
                     setLogoUrl(`${baseURL}${logoConfig.value}`);
                 }
             } else {

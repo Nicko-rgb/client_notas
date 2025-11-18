@@ -2,8 +2,10 @@ import axios from 'axios';
 import useAuthStore from '../../modules/auth/store/authStore';
 import toast from 'react-hot-toast';
 
-// Configuración base de Axios
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:9001/api/v1';
+let API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:9001/api/v1';
+if (typeof window !== 'undefined' && window.location.protocol === 'https:' && API_BASE_URL.startsWith('http://')) {
+    API_BASE_URL = API_BASE_URL.replace('http://', 'https://');
+}
 
 const api = axios.create({
     baseURL: API_BASE_URL,

@@ -15,8 +15,10 @@ export const configService = {
             // Asegurarse de que la ruta sea absoluta
             let logoUrl = response.data.value;
             if (!logoUrl.startsWith('http')) {
-                const backendUrl = import.meta.env.VITE_API_URL || 'http://localhost:8000';
-                // Eliminar /api/v1 de la URL base si existe
+                let backendUrl = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+                if (typeof window !== 'undefined' && window.location.protocol === 'https:' && backendUrl.startsWith('http://')) {
+                    backendUrl = backendUrl.replace('http://', 'https://');
+                }
                 const baseUrl = backendUrl.replace(/\/api\/v1$/, '');
                 logoUrl = `${baseUrl}${logoUrl}`;
             }
