@@ -65,7 +65,7 @@ export const docentesService = {
     },
 
     createDocente: async (docenteData) => {
-        const response = await api.post('/admin/docentes', docenteData);
+        const response = await api.post('/admin/docentes/', docenteData);
         return response.data;
     },
 
