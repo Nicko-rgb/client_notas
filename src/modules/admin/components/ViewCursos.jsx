@@ -27,10 +27,12 @@ const ViewCursos = ({ isOpen, onClose, docente, docenteCursos = [] }) => {
     ))].filter(Boolean).sort((a, b) => b - a);
 
     // Usar todos los ciclos disponibles filtrados por año seleccionado
-    const availableCycles = allCiclos
-        .filter(ciclo => !selectedYear || ciclo.año?.toString() === selectedYear)
-        .map(ciclo => ciclo.nombre)
-        .sort();
+    const availableCycles = Array.from(new Set(
+        allCiclos
+            .filter(ciclo => !selectedYear || ciclo.año?.toString() === selectedYear)
+            .map(ciclo => ciclo.nombre)
+            .filter(Boolean)
+    )).sort();
 
     // Cargar todos los ciclos disponibles
     useEffect(() => {
