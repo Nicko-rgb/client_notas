@@ -116,10 +116,10 @@ const ReportesDinamicos = ({ abrirModalEstudiantes: abrirModalEstudiantesProp, t
                             <div className="font-semibold text-purple-600">{estadisticas.total_cursos}</div>
                             <div className="text-gray-500">Cursos</div>
                         </div>
-                        <div className="text-center">
+                        {/* <div className="text-center">
                             <div className="font-semibold text-orange-600">{estadisticas.promedio_general}</div>
                             <div className="text-gray-500">Promedio</div>
-                        </div>
+                        </div> */}
                     </div>
                     
                 </div>

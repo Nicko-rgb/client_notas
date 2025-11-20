@@ -17,6 +17,7 @@ import { Link } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import useAuthStore from '../../auth/store/authStore';
 import { dashboardService } from '../services/apiTeacher';
+import useNavigationStore from '../../../shared/store/navigationStore';
 
 const StatCard = ({ title, value, icon: Icon, color, subtitle, trend }) => (
     <div className="card p-4 hover:shadow-lg transition-shadow">
@@ -41,24 +42,29 @@ const StatCard = ({ title, value, icon: Icon, color, subtitle, trend }) => (
     </div>
 );
 
-const QuickAction = ({ title, description, icon: Icon, to, color }) => (
-    <Link
-        to={to}
-        className="card p-4 hover:shadow-lg group"
-    >
-        <div className="flex items-center space-x-4">
-            <div className={`p-3 rounded-full ${color.replace('text-', 'bg-').replace('-600', '-100')} group-hover:scale-110 transition-transform`}>
-                <Icon className={`w-6 h-6 ${color}`} />
+const QuickAction = ({ title, description, icon: Icon, sectionId, color }) => {
+
+    const { navigateToSection } = useNavigationStore();
+
+    return (
+        <button
+            onClick={() => navigateToSection(sectionId)}
+            className="card p-4 hover:shadow-lg group"
+        >
+            <div className="flex items-center space-x-4">
+                <div className={`p-3 rounded-full ${color.replace('text-', 'bg-').replace('-600', '-100')} group-hover:scale-110 transition-transform`}>
+                    <Icon className={`w-6 h-6 ${color}`} />
+                </div>
+                <div>
+                    <h3 className="font-semibold text-secondary-900 group-hover:text-primary-600 transition-colors text-left">
+                        {title}
+                    </h3>
+                    <p className="text-sm text-secondary-600">{description}</p>
+                </div>
             </div>
-            <div>
-                <h3 className="font-semibold text-secondary-900 group-hover:text-primary-600 transition-colors">
-                    {title}
-                </h3>
-                <p className="text-sm text-secondary-600">{description}</p>
-            </div>
-        </div>
-    </Link>
-);
+        </button>
+    )
+};
 
 // Componente de barra de progreso
 const ProgressBar = ({ label, current, max, color = "bg-blue-500" }) => {
@@ -249,12 +255,14 @@ const Dashboard = () => {
 
     const { docente_info, cursos_actuales, estadisticas_generales, actividad_reciente } = dashboardData;
 
+    console.log('User: ', user);
+    
     return (
         <div className="space-y-3 p-3">
             {/* Header */}
             <div className="flex justify-between items-start">
                 <div>
-                    <h1 className="text-2xl font-bold text-secondary-900">¡Bienvenido, {docente_info.nombres}!</h1>
+                    <h1 className="text-2xl font-bold text-secondary-900">¡Bienvenido, {user.last_name} {user.first_name}!</h1>
                     <p className="text-secondary-600 mt-1">Aquí tienes un resumen de tu actividad académica</p>
                 </div>
                 <div className="text-right">
@@ -300,21 +308,21 @@ const Dashboard = () => {
                     title="Subir Calificaciones"
                     description="Actualizar notas de estudiantes"
                     icon={TrendingUp}
-                    to="/docente/grades"
+                    sectionId='grades'
                     color="text-green-600"
                 />
                 <QuickAction
                     title="Ver Reportes"
                     description="Generar reportes de rendimiento"
                     icon={FileText}
-                    to="/docente/reports"
+                    sectionId='reports'
                     color="text-blue-600"
                 />
                 <QuickAction
                     title="Ver Mis Cursos"
                     description="Mis asignados"
                     icon={BookOpen}
-                    to="/docente/courses"
+                    sectionId='courses'
                     color="text-purple-600"
                 />
             </div>
