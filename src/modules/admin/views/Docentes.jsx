@@ -36,8 +36,6 @@ const Docentes = () => {
     const [showViewCursosModal, setShowViewCursosModal] = useState(false);
     const [docenteCursos, setDocenteCursos] = useState([]);
 
-    console.log("API BACK: ",import.meta.env.VITE_API_URL)
-
     // Filter docentes based on search term and status
     const filteredDocentes = docentes.filter(docente => {
         const matchesSearch = 

@@ -82,7 +82,11 @@ export const docentesService = {
     assignCursoToDocente: async (docenteId, cursoId) => {
         const response = await api.post(`/admin/docentes/${docenteId}/assign-curso`, { curso_id: cursoId });
         return response.data;
-    }
+    },
+    getDocenteCursos: async (docenteId) => {
+        const response = await api.get(`/admin/docentes/${docenteId}/cursos`);
+        return response.data;
+    },
 };
 
 // Servicios de Cursos y Ciclos
